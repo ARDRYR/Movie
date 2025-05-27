@@ -1,0 +1,33 @@
+* {
+  /* border: 1px solid black; */
+}
+
+.card {
+  width: 200px;
+  height: 385px;
+  border-radius: 10px;
+}
+
+.card-image {
+  width: 200px;
+  height: 300px;
+  border-radius: 10px 10px 0 0;
+  object-fit: cover;
+}
+
+.card-infomation {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 11px;
+  background-color: #222;
+  border-radius: 0 0 10px 10px;
+}
+
+.card-title {
+  color: white;
+}
+
+.card-score {
+  color: #FFD700;
+}
