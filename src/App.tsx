@@ -1,15 +1,50 @@
+import { useEffect, useState } from 'react';
 import './App.css';
 import Card from './components/Card';
 
+interface MovieType {
+  id: number;
+  src: string;
+  title: string;
+  score: number;
+}
+
 export default function App() {
+  const [movies, setMovies] = useState<MovieType[]>([]);
+
+  
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const response = await fetch('https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1',{
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+      }
+    })
+    const data = await response.json();
+    setMovies(data.results.map((movie: any) => ({
+      id: movie.id,
+      src: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+      title: movie.title,
+      score: movie.vote_average,
+    })));
+  };
+
+  fetchMovies();
+  }, []);
+
 
   return (
-    <>
-      <Card
-        imageSource='https://media.istockphoto.com/id/507968212/ko/%EC%82%AC%EC%A7%84/%EB%B9%A8%EA%B0%84%EC%83%89-%EB%8B%A8%EA%B6%A4-%EC%95%8C%ED%8C%8C%EB%B2%B3-a.jpg?s=612x612&w=0&k=20&c=k9XmiavCnemNz6zL5Baa3o0L9FdSGfwijstKWXIiFmc='
-        title='엑스테리토리얼'
-        score={6.7}
-      />
-    </>
+    <div className='cards'>
+      {movies.map((movie) => (
+        <Card
+          key={movie.id}
+          imageSource={movie.src}
+          title={movie.title}
+          score={movie.score}
+        />
+      ))}
+    </div>
   )
 }

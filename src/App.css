@@ -2,6 +2,11 @@
   /* border: 1px solid black; */
 }
 
+.cards {
+  display: flex;
+  gap: 16px;
+}
+
 .card {
   width: 200px;
   height: 385px;
@@ -13,6 +18,7 @@
   height: 300px;
   border-radius: 10px 10px 0 0;
   object-fit: cover;
+  display: flex;
 }
 
 .card-infomation {
