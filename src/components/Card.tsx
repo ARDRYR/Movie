@@ -11,7 +11,7 @@ export default function Card({ imageSource, title, score }: CardProps) {
       <img className="card-image" src={imageSource}/>
       <div className="card-infomation">
         <span className="card-title">{title}</span>
-        <span className="card-score">⭐ {score}</span>
+        <span className="card-score">⭐ {score.toFixed(1)}</span>
       </div>
     </div>
   );

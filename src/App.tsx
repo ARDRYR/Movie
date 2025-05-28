@@ -49,6 +49,9 @@ export default function App() {
 
   return (
     <div className='container'>
+      <header>
+        <span className='header-title'>Movie List</span>
+      </header>
       <div className='cards'>
         {movies.map((movie) => (
           <button
@@ -66,12 +69,23 @@ export default function App() {
       {modal && (
         <div className='modal-background'>
           <div className='modal'>
-            <img src='?'/>
+            <img className='modal-image' src={modal.src}/>
             <div className='modal-infomation'>
               <span className='modal-title'>{modal.title}</span>
-              
+              <div className='modal-releaseDateCover'>
+                <span className='modal-releaseDateText'>개봉일: </span>
+                <span className='modal-releaseDate'>{modal.releaseData}</span>
+              </div>
+              <div>
+                <span className='modal-scoreText'>평점: ⭐ </span>
+                <span className='modal-score'>{modal.score.toFixed(1)}</span>
+              </div>
+              <div>
+                <span className='modal-overviewText'>줄거리: </span>
+                <span className='modal-overview'>{modal.overview}</span>
+              </div>
             </div>
-            <button onClick={handleCloseClick}>X</button>
+            <button className='modal-closeButton' onClick={handleCloseClick}>X</button>
           </div>
         </div>
       )}
