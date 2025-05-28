@@ -2,6 +2,12 @@
   /* border: 1px solid black; */
 }
 
+button {
+  border: 0;
+  background-color: transparent;
+  color: white;
+}
+
 .cards {
   display: flex;
   gap: 16px;
@@ -36,4 +42,17 @@
 
 .card-score {
   color: #FFD700;
+}
+
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.modal {
+
 }
