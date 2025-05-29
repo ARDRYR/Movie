@@ -51,6 +51,9 @@ button {
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-score {
@@ -76,6 +79,7 @@ button {
 .modal {
   display: flex;
   justify-content: center;
+  align-items: center;
   color: white;
   width: 600px;
   max-height: 80vh;
@@ -89,7 +93,7 @@ button {
 
 .modal-image {
   width: 200px;
-  aspect-ratio: 2 / 3;
+  height: 300px;
   object-fit: cover;
   display: flex;
   border-radius: 10px;
