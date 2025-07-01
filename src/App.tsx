@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Card from './components/Card';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 interface MovieType {
   id: number;
@@ -15,7 +16,7 @@ export default function App() {
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [modal, setModal] = useState<MovieType | null>(null);
 
-  
+  /*
   useEffect(() => {
     const fetchMovies = async () => {
       const response = await fetch('https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1',{
@@ -35,9 +36,36 @@ export default function App() {
       releaseData: movie.release_date,
     })));
   };
+*/
 
-  fetchMovies();
-  }, []);
+const { data } = useSuspenseQuery<MovieType[], Error, MovieType[]>({
+  queryKey: ['movieKey'],
+  queryFn: async () => {
+    const response = await fetch('https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1', {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+      },
+    })
+    
+    if (!response.ok) throw new Error('네트워크 오류 발생')
+      const data = await response.json();
+    const result = data.results.map((movie: any) => ({
+      id: movie.id,
+      src: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+      title: movie.title,
+      score: movie.vote_average,
+      overview: movie.overview,
+      releaseData: movie.release_date,
+    }));
+    return result
+  }
+})
+
+useEffect(() => {
+  setMovies(data)
+}, [data])
 
   const handleCardClick = (movie: MovieType) => {
     setModal(movie);
